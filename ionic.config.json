@@ -1,0 +1,7 @@
+{
+  "name": "fivethree-fastlane",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
