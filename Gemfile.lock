@@ -1,7 +1,7 @@
 PATH
-  remote: ../fastlane-plugin-fiv_increment_build_no
+  remote: ../fastlane-plugin-fivethree_ionic
   specs:
-    fastlane-plugin-fiv_increment_build_no (0.1.1)
+    fastlane-plugin-fivethree_ionic (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -147,7 +147,7 @@ PLATFORMS
 
 DEPENDENCIES
   fastlane
-  fastlane-plugin-fiv_increment_build_no!
+  fastlane-plugin-fivethree_ionic!
 
 BUNDLED WITH
    1.16.4

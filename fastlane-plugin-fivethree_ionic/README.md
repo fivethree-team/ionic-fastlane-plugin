@@ -1,18 +1,18 @@
-# fiv_increment_build_no plugin
+# fivethree_ionic plugin
 
-[![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-fiv_increment_build_no)
+[![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-fivethree_ionic)
 
 ## Getting Started
 
-This project is a [_fastlane_](https://github.com/fastlane/fastlane) plugin. To get started with `fastlane-plugin-fiv_increment_build_no`, add it to your project by running:
+This project is a [_fastlane_](https://github.com/fastlane/fastlane) plugin. To get started with `fastlane-plugin-fivethree_ionic`, add it to your project by running:
 
 ```bash
-fastlane add_plugin fiv_increment_build_no
+fastlane add_plugin fivethree_ionic
 ```
 
-## About fiv_increment_build_no
+## About fivethree_ionic
 
-fastlane plugin for ionic 4
+Fastlane plugin for Ionic v4 Projects
 
 **Note to author:** Add a more detailed description about this plugin here. If your plugin contains multiple actions, make sure to mention them here.
 

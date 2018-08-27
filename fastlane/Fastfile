@@ -21,5 +21,7 @@ platform :ios do
     # add actions here: https://docs.fastlane.tools/actions
     build_number = fiv_increment_build_no(ios: false, pathToConfigXML: './config.xml')
     puts "Successfully incremented build number #{build_number}"
+
+    fiv_build_ionic_android(isProd: false)
   end
 end

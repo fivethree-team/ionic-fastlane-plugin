@@ -1,3 +1,0 @@
-lane :test do
-  fiv_increment_build_no
-end

@@ -1,8 +1,9 @@
-require 'fastlane/action'
-require_relative '../helper/fiv_increment_build_no_helper'
-
 module Fastlane
   module Actions
+    module SharedValues
+      FIV_INCREMENT_BUILD_NO_CUSTOM_VALUE = :FIV_INCREMENT_BUILD_NO_CUSTOM_VALUE
+    end
+
     class FivIncrementBuildNoAction < Action
       def self.run(params)
         UI.message("The fiv_increment_build_no plugin is working!")

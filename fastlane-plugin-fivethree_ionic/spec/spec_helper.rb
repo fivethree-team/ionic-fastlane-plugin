@@ -10,6 +10,6 @@ module SpecHelper
 end
 
 require 'fastlane' # to import the Action super class
-require 'fastlane/plugin/fiv_increment_build_no' # import the actual plugin
+require 'fastlane/plugin/fivethree_ionic' # import the actual plugin
 
 Fastlane.load_actions # load other actions (in case your plugin calls other actions or shared values)

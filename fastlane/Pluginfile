@@ -2,4 +2,4 @@
 #
 # Ensure this file is checked in to source control!
 
-gem 'fastlane-plugin-fiv_increment_build_no', path: '/Users/garygrossgarten/Dev/things/fivethree-fastlane/fastlane-plugin-fiv_increment_build_no'
+gem 'fastlane-plugin-fivethree_ionic', path: '/Users/mj/Dev/fivethree/fastlane-plugins/fivethree-fastlane/fastlane-plugin-fivethree_ionic'

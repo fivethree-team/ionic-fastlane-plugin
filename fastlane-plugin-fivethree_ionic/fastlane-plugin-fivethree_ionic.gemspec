@@ -2,16 +2,16 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'fastlane/plugin/fiv_increment_build_no/version'
+require 'fastlane/plugin/fivethree_ionic/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'fastlane-plugin-fiv_increment_build_no'
-  spec.version       = Fastlane::FivIncrementBuildNo::VERSION
-  spec.author        = 'Fivethree'
-  spec.email         = 'info@fivethree.io'
+  spec.name          = 'fastlane-plugin-fivethree_ionic'
+  spec.version       = Fastlane::FivethreeIonic::VERSION
+  spec.author        = 'Marc Stammerjohann'
+  spec.email         = 'marcstammerjohann@web.de'
 
-  spec.summary       = 'fastlane plugin for ionic 4'
-  spec.homepage      = "https://github.com/fivethree-team/fivethree-fastlane"
+  spec.summary       = 'Fastlane plugin for Ionic v4 Projects'
+  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-fivethree_ionic"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
