@@ -35,6 +35,15 @@ To automatically fix many of the styling issues, use
 rubocop -a
 ```
 
+## Publish 
+
+* `cd fastlane-plugin-fivethree_ionic`
+* update to latest gem files `bundle install`
+* `sudo rake install`
+* increment version number in `lib/fastlane/plugin/fivethree_ionic/version.rb`
+* build new plugin version `rake build`
+* publish ruby gem `gem push pkg/fastlane-plugin-fivethree_ionic-`
+
 ## Issues and Feedback
 
 For any other issues and feedback about this plugin, please submit it to this repository.
