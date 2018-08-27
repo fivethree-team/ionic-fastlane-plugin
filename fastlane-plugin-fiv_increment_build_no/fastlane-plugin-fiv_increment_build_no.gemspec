@@ -7,11 +7,11 @@ require 'fastlane/plugin/fiv_increment_build_no/version'
 Gem::Specification.new do |spec|
   spec.name          = 'fastlane-plugin-fiv_increment_build_no'
   spec.version       = Fastlane::FivIncrementBuildNo::VERSION
-  spec.author        = 'Gary Großgarten'
-  spec.email         = 'gary.grossgarten@gmail.com'
+  spec.author        = 'Fivethree'
+  spec.email         = 'info@fivethree.io'
 
   spec.summary       = 'fastlane plugin for ionic 4'
-  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-fiv_increment_build_no"
+  spec.homepage      = "https://github.com/fivethree-team/fivethree-fastlane"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
