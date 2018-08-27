@@ -39,7 +39,8 @@ module Fastlane
 
         puts build_number
       
-        File.open("./config.xml", "w") {|file| file.puts new_contents}      
+        File.open("./config.xml", "w") {|file| file.puts new_contents}    
+        return build_number  
       end
 
       def self.description
@@ -51,7 +52,8 @@ module Fastlane
       end
 
       def self.return_value
-        # If your method provides a return value, you can describe here what it does
+        "returns the new build number"
+
       end
 
       def self.details
