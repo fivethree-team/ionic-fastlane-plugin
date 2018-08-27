@@ -30,6 +30,8 @@ module Fastlane
         
         File.open(params[:pathToConfigXML], "w") {|file| file.puts new_contents}
 
+        return version
+
       end
 
       #####################################################
@@ -70,7 +72,7 @@ module Fastlane
       end
 
       def self.return_value
-        # If your method provides a return value, you can describe here what it does
+        "returns the new version specified in config.xml"
       end
 
       def self.authors
