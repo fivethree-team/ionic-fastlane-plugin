@@ -7,11 +7,29 @@ module Fastlane
     class FivUpdateVersionAction < Action
       def self.run(params)
         # fastlane will take care of reading in the parameter and fetching the environment variable:
-        UI.message "Parameter API Token: #{params[:api_token]}"
+        old_version = sh "echo \"cat //*[local-name()='widget']/@version\" | xmllint --shell #{params[:pathToConfigXML]}|  awk -F'[=\"]' '!/>/{print $(NF-1)}'"
+        old_version = old_version.delete!("\n")
+        puts "current version: #{old_version}"
 
-        # sh "shellcommand ./path"
+        puts "Insert new version number, current version in config.xml is '#{old_version}' (Leave empty and press enter to skip this step): "
+        new_version_number = STDIN.gets.strip
+        puts "new version: #{new_version_number}"
 
-        # Actions.lane_context[SharedValues::FIV_UPDATE_VERSION_CUSTOM_VALUE] = "my_val"
+        if new_version_number.length > 0
+          puts "take new version number"
+          version = new_version_number
+        else
+          puts "take old version number"
+          version = old_version
+        end
+
+        text = File.read(params[:pathToConfigXML])
+
+        new_contents = text
+                     .gsub(/version="[0-9.]*"/, "version=\"#{version}\"")
+        
+        File.open(params[:pathToConfigXML], "w") {|file| file.puts new_contents}
+
       end
 
       #####################################################
@@ -31,20 +49,15 @@ module Fastlane
       def self.available_options
         # Define all options your action supports. 
         
-        # Below a few examples
         [
-          FastlaneCore::ConfigItem.new(key: :api_token,
-                                       env_name: "FL_FIV_UPDATE_VERSION_API_TOKEN", # The name of the environment variable
-                                       description: "API Token for FivUpdateVersionAction", # a short description of this parameter
-                                       verify_block: proc do |value|
-                                          UI.user_error!("No API token for FivUpdateVersionAction given, pass using `api_token: 'token'`") unless (value and not value.empty?)
-                                          # UI.user_error!("Couldn't find file at path '#{value}'") unless File.exist?(value)
-                                       end),
-          FastlaneCore::ConfigItem.new(key: :development,
-                                       env_name: "FL_FIV_UPDATE_VERSION_DEVELOPMENT",
-                                       description: "Create a development certificate instead of a distribution one",
-                                       is_string: false, # true: verifies the input is a string, false: every kind of value
-                                       default_value: false) # the default value if the user didn't provide one
+          FastlaneCore::ConfigItem.new(key: :pathToConfigXML,
+                                  env_name: "FIV_INCREMENT_BUILD_CONFIG",
+                               description: "---",
+                                  optional: false,
+                                  verify_block: proc do | value |
+                                    UI.user_error!("Couldnt find config.xml! Please change your path.") unless File.exist?(value)
+                                  end  ,
+                                      type: String)
         ]
       end
 
