@@ -1,7 +1,7 @@
 PATH
   remote: ../fastlane-plugin-fiv_increment_build_no
   specs:
-    fastlane-plugin-fiv_increment_build_no (0.1.0)
+    fastlane-plugin-fiv_increment_build_no (0.1.1)
 
 GEM
   remote: https://rubygems.org/

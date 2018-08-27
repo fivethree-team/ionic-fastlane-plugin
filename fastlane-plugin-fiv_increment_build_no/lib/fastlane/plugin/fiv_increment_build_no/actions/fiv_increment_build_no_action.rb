@@ -37,8 +37,6 @@ module Fastlane
 
         end
 
-        puts build_number
-      
         File.open("./config.xml", "w") {|file| file.puts new_contents}    
         return build_number  
       end
