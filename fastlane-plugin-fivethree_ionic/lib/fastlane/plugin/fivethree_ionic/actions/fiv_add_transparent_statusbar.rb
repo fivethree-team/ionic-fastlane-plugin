@@ -1,10 +1,10 @@
 module Fastlane
   module Actions
     module SharedValues
-      ADD_TRANSPARENT_STATUSBAR_CUSTOM_VALUE = :ADD_TRANSPARENT_STATUSBAR_CUSTOM_VALUE
+      FIV_ADD_TRANSPARENT_STATUSBAR_CUSTOM_VALUE = :ADD_TRANSPARENT_STATUSBAR_CUSTOM_VALUE
     end
 
-    class AddTransparentStatusbarAction < Action
+    class FivAddTransparentStatusbarAction < Action
       def self.run(params)
 
         text = File.read(params[:path])

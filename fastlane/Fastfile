@@ -18,7 +18,7 @@ default_platform(:ios)
 platform :ios do
   desc "Description of what the lane does"
   lane :custom_lane do
-    add_transparent_statusbar(ios: false, path: "/Users/garygrossgarten/Desktop/MainActivity.java")
+    fiv_add_transparent_statusbar(ios: false, path: "/Users/garygrossgarten/Desktop/MainActivity.java")
   
   end
 end
