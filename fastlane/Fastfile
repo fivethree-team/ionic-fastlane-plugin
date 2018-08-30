@@ -1,6 +1,4 @@
 
-git_url = "https://bitbucket.org/fivethree/fastlane-certs"
-
 update_fastlane
 
 default_platform(:ios)
@@ -11,10 +9,7 @@ platform :ios do
   lane :fiv_testflight do
 
   # ensure_git_status_clean   
-  match(
-    git_url: git_url,
-    type: "appstore",
-  ) 
+  match
   version_and_build_no = fiv_version(
     ios: true,
     pathToConfigXML: "./config.xml"
