@@ -35,6 +35,10 @@ push_to_git_remote
     )
   gym
   pilot
+
+  notification(subtitle: "Fastlane finished successfully", message: "Nice")
+  rocket
+
   end
 end
 
