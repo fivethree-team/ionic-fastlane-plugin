@@ -15,15 +15,10 @@ platform :ios do
     git_url: git_url,
     type: "appstore",
   ) 
-  version_and_build_no = fiv_update_version_and_build_no(
+  version_and_build_no = fiv_version(
     ios: true,
     pathToConfigXML: "./config.xml"
   )
-
-  fiv_bump_version(
-    message: "Version Bump: build #{version_and_build_no[:build_no]}, version: #{version_and_build_no[:version]}"
-    )
-  push_to_git_remote
 
   ionic(
     platform: 'ios',
@@ -36,10 +31,6 @@ platform :ios do
     )
   gym
   pilot
-
-  notification(subtitle: "Fastlane finished successfully", message: "Nice")
-  rocket
-
   end
 end
 

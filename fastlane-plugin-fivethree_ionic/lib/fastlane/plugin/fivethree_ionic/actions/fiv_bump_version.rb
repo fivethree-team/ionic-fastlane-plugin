@@ -6,7 +6,8 @@ module Fastlane
 
     class FivBumpVersionAction < Action
       def self.run(params)
-        sh "git commit -m #{params[:message]}"
+        sh "git add config.xml"
+        sh "git commit -m \"#{params[:message]}\""
       end
 
       #####################################################
