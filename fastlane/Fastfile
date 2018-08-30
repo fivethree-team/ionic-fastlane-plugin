@@ -10,7 +10,7 @@ platform :ios do
   desc "Build and release a test version to testflight"
   lane :fiv_testflight do
 
-  ensure_git_status_clean   
+  # ensure_git_status_clean   
   match(
     git_url: git_url,
     type: "appstore",
@@ -20,9 +20,8 @@ platform :ios do
     pathToConfigXML: "./config.xml"
   )
 
-  commit_version_bump(
-    message: "Version Bump: build #{version_and_build_no[:build_no]}, version: #{version_and_build_no[:version]}",
-    xcodeproj: "./platforms/ios/fivethree-fastlane.xcodeproj"
+  fiv_bump_version(
+    message: "Version Bump: build #{version_and_build_no[:build_no]}, version: #{version_and_build_no[:version]}"
     )
   push_to_git_remote
 
