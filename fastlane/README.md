@@ -15,6 +15,14 @@ Install _fastlane_ using
 or alternatively using `brew cask install fastlane`
 
 # Available Actions
+### fiv_test
+```
+fastlane fiv_test
+```
+Test lane for action development
+
+----
+
 ## iOS
 ### ios fiv_testflight
 ```

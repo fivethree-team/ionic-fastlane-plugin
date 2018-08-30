@@ -15,7 +15,7 @@ platform :ios do
     pathToConfigXML: "./config.xml"
   )
 
-  ionic(
+  fiv_ionic(
     platform: 'ios',
     release: true
   )
@@ -43,3 +43,16 @@ platform :android do
   )
   end
 end
+
+  
+  desc "Test lane for action development"
+  lane :fiv_test do
+
+    pathToSignedAPK = fiv_sign_android(
+      version: "1.0.0",
+      build_no: "1001"
+    )
+
+    puts "path to signed apk: #{pathToSignedAPK}"
+
+  end
