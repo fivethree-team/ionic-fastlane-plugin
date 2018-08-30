@@ -4,3 +4,7 @@
 
 # For more information about the Appfile, see:
 #     https://docs.fastlane.tools/advanced/#appfile
+app_identifier "de.fivethree.fastlane"
+apple_id "gary.grossgarten@gmail.com"
+team_id "2K6ELPY322"
+itc_team_id "119091779"

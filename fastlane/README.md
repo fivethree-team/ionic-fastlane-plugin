@@ -16,11 +16,20 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
-### ios custom_lane
+### ios fiv_testflight
 ```
-fastlane ios custom_lane
+fastlane ios fiv_testflight
 ```
-Description of what the lane does
+Build and release a test version to testflight
+
+----
+
+## Android
+### android fiv_alpha
+```
+fastlane android fiv_alpha
+```
+Build and release a test version to testflight
 
 ----
 

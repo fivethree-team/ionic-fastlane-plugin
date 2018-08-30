@@ -1,25 +1,54 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
 
-# Uncomment the line if you want fastlane to automatically update itself
+git_url = "https://bitbucket.org/fivethree/fastlane-certs"
+
 update_fastlane
 
 default_platform(:ios)
 
 platform :ios do
-  desc "Description of what the lane does"
-  lane :custom_lane do
-    fiv_add_transparent_statusbar(ios: false, path: "/Users/garygrossgarten/Desktop/MainActivity.java")
   
+  desc "Build and release a test version to testflight"
+  lane :fiv_testflight do
+
+  ensure_git_status_clean   
+  match(
+    git_url: git_url,
+    type: "appstore",
+  ) 
+  version_and_build_no = fiv_update_version_and_build_no(
+    ios: true,
+    pathToConfigXML: "./config.xml"
+  )
+
+commit_version_bump(message: "Version Bump: build #{version_and_build_no.build_no}, version: #{version_and_build_no.version}")
+push_to_git_remote
+
+
+  ionic(
+    platform: 'ios',
+    release: true
+  )
+  automatic_code_signing(
+        path: "platforms/ios/fivethree-fastlane.xcodeproj",
+        use_automatic_signing: false,
+        team_id: "2K6ELPY322"
+    )
+  gym
+  pilot
   end
 end
 
+platform :android do
+  
+  desc "Build and release a test version to testflight"
+  lane :fiv_alpha do
+  fiv_update_version_and_build_no(
+    ios: false,
+    pathToConfigXML: "./config.xml"
+  )
+  ionic(
+    platform: 'android',
+    release: true
+  )
+  end
+end

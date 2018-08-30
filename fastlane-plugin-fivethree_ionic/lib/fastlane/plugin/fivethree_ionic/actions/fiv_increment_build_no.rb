@@ -6,8 +6,8 @@ module Fastlane
 
     class FivIncrementBuildNoAction < Action
       def self.run(params)
-        UI.message("The fiv_increment_build_no plugin is working!")
-        text = File.read("./config.xml")
+        text = File.read(params[:pathToConfigXML])
+        puts "test #{text}"
 
         isIos = params[:ios]
         if (isIos)
@@ -38,7 +38,7 @@ module Fastlane
 
         end
 
-        File.open("./config.xml", "w") {|file| file.puts new_contents}    
+        File.open(params[:pathToConfigXML], "w") {|file| file.puts new_contents}    
         return build_number  
       end
 
