@@ -21,7 +21,8 @@ platform :ios do
   )
 
   commit_version_bump(
-    message: "Version Bump: build #{version_and_build_no[:build_no]}, version: #{version_and_build_no[:version]}"
+    message: "Version Bump: build #{version_and_build_no[:build_no]}, version: #{version_and_build_no[:version]}",
+    xcodeproj: "./platforms/ios/fivethree-fastlane.xcode.proj"
     )
   push_to_git_remote
 
