@@ -114,7 +114,7 @@ module Fastlane
 
         ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH'] = "./platforms/android/build/outputs/apk/android-#{build_type}.apk"
         ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'] = "./platforms/ios/build/device/#{app_name}.ipa"
-        ENV['CORDOVA_PWA_RELEASE_BUILD_PATH'] = "./www"
+        ENV['CORDOVA_PWA_RELEASE_BUILD_PATH'] = "./platforms/browser/www"
 
         # TODO: https://github.com/bamlab/fastlane-plugin-cordova/issues/7
       end
@@ -126,6 +126,14 @@ module Fastlane
         self.check_and_add_platform(params[:platform])
         self.build(params)
         self.set_build_paths(params[:release])
+
+        if params[:platform].to_s == 'ios'
+          return ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'] 
+        elsif params[:platform].to_s == 'android'
+          return ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']
+        elsif params[:platform].to_s == 'browser'
+          return ENV['CORDOVA_PWA_RELEASE_BUILD_PATH']
+        end
       end
 
       #####################################################

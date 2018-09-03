@@ -21,8 +21,13 @@ module Fastlane
         sign = "jarsigner -tsa http://timestamp.digicert.com -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore #{keystore_path} -storepass #{keystore_storepass} -keypass #{keystore_keypass} ./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk fivethree"
         path = "./platforms/android/app/build/outputs/apk/release/app-release-#{params[:version]}-#{params[:build_no]}.apk"
         zipalign = "$ANDROID_SDK/build-tools/$ANDROID_BUILD_TOOL_VERSION/zipalign -v 4 \"./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk\" \"#{path}\""
-        self.run_silent(sign)
-        self.run_silent(zipalign)
+        if params[:silent]
+          self.run_silent(sign)
+          self.run_silent(zipalign)
+        else
+          sh sign
+          sh zipalign
+        end
       
         return path
 
@@ -80,6 +85,13 @@ FastlaneCore::ConfigItem.new(key: :alias,
             description: "current build number from config.xml",
             is_string: true,
             default_value: ''
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :silent,
+            env_name: "SIGN_ANDROID_SLIENT",
+            description: "wether to sign android silently",
+            is_string: false,
+            default_value: true
           )
         ]
       end

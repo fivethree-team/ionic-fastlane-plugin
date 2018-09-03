@@ -1,7 +1,7 @@
 PATH
   remote: ../fastlane-plugin-fivethree_ionic
   specs:
-    fastlane-plugin-fivethree_ionic (0.1.4)
+    fastlane-plugin-fivethree_ionic (0.1.5)
 
 GEM
   remote: https://rubygems.org/
@@ -98,6 +98,9 @@ GEM
     multipart-post (2.0.0)
     nanaimo (0.2.6)
     naturally (2.2.0)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (5.0.2)
     os (1.0.0)
     plist (3.4.0)
     public_suffix (2.0.5)
@@ -148,6 +151,7 @@ PLATFORMS
 DEPENDENCIES
   fastlane
   fastlane-plugin-fivethree_ionic!
+  net-scp
 
 BUNDLED WITH
    1.16.4

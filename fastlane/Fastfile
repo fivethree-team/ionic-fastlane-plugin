@@ -48,11 +48,27 @@ end
   desc "Test lane for action development"
   lane :fiv_test do
 
-    pathToSignedAPK = fiv_sign_android(
-      version: "1.0.0",
-      build_no: "1001"
-    )
+    # pathToSignedAPK = fiv_sign_android(
+    #   version: "1.0.0",
+    #   build_no: "1001"
+    # )
 
-    puts "path to signed apk: #{pathToSignedAPK}"
+    # puts "path to signed apk: #{pathToSignedAPK}"
+
+    puts "enter scp password:"
+    keychain_entry = CredentialsManager::AccountManager.new(user: "immo_app_scp_client")
+    scp_pw = keychain_entry.password
+      scp(
+        host: "d167.x-mailer.de",
+        username: "immoappde",
+        password: scp_pw,
+        upload: {
+          src: "./www",
+          dst: "/httpdocs/demo"
+        }
+      )
+      
+    
+
 
   end
