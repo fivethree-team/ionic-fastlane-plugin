@@ -1,3 +1,12 @@
 lane :test do
-  fivethree_ionic
+  a = fiv_select_branding
+
+  puts"selected from fiv_select_branding action #{a}"
+
+  b = fiv_select_branding(branding_folder: "../e2e")
+
+  puts"selected from fiv_select_branding action #{b}"
+
+  puts"selected branding key from fiv_select_branding action ENV #{ENV['FIV_SELECTED_BRANDING_KEY']}"
+  puts"selected branding path from fiv_select_branding action ENV #{ENV['FIV_SELECTED_BRANDING_PATH']}"
 end
