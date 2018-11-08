@@ -63,7 +63,7 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :branding_folder,
             env_name: "FIV_SELECT_BRANDING_FOLDER", # The name of the environment variable
             description: "Branding folder path for FivSelectBrandingsAction", # a short description of this parameter
-            default_value: "../brandings",
+            default_value: "brandings",
             is_string: true,
             verify_block: proc do |value|
                UI.user_error!("No branding folder path for FivSelectBrandingAction given, pass using `branding_folder: '../path_to_branding_folder'`") unless (value and not value.empty?)
