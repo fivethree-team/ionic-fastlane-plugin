@@ -42,7 +42,7 @@ rubocop -a
 * `sudo rake install`
 * increment version number in `lib/fastlane/plugin/fivethree_ionic/version.rb`
 * build new plugin version `rake build`
-* publish ruby gem `gem push pkg/fastlane-plugin-fivethree_ionic-`
+* publish ruby gem `gem push pkg/fastlane-plugin-fivethree_ionic-${version}`
 
 ## Issues and Feedback
 
