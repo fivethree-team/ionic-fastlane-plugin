@@ -18,9 +18,9 @@ module Fastlane
         keystore_keypass = keychain_entry.password
 
         puts "Silent execution of jarsigner because we don't want to print passwords. You can delete the password if they are wrong stored in the keychain: 'fastlane fastlane-credentials remove --username android_keystore_storepass' and 'fastlane fastlane-credentials remove --username android_keystore_keypass'"
-        sign = "jarsigner -tsa http://timestamp.digicert.com -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore #{keystore_path} -storepass #{keystore_storepass} -keypass #{keystore_keypass} ./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk fivethree"
+        sign = "jarsigner -tsa http://timestamp.digicert.com -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore #{keystore_path} -storepass #{keystore_storepass} -keypass #{keystore_keypass} #{ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']} #{params[:key_alias]}"
         path = "./platforms/android/app/build/outputs/apk/release/app-release-#{params[:version]}-#{params[:build_no]}.apk"
-        zipalign = "$ANDROID_SDK/build-tools/$ANDROID_BUILD_TOOL_VERSION/zipalign -v 4 \"./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk\" \"#{path}\""
+        zipalign = "$ANDROID_SDK/build-tools/$ANDROID_BUILD_TOOL_VERSION/zipalign -v 4 \"#{ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']}\" \"#{path}\""
         if params[:silent]
           self.run_silent(sign)
           self.run_silent(zipalign)
@@ -67,7 +67,7 @@ FastlaneCore::ConfigItem.new(key: :keystore_name,
             description: "",
             is_string: true,
             optional: false),
-FastlaneCore::ConfigItem.new(key: :alias,
+FastlaneCore::ConfigItem.new(key: :key_alias,
             env_name: "ANDROID_KEYSTORE_KEYSTORE_ALIAS",
             description: "",
             is_string: true,
