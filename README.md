@@ -98,6 +98,9 @@ For example you have the following app clients:
 
 ```ruby
 client = fiv_select_client()
+
+# copy client resources e.g. "cp ../clients/#{client}/resources ../"
+# build app
 ```
 
 #### CI
@@ -119,6 +122,48 @@ end
 | clients_folder | Path to your clients white label resources | `string` | `clients` |
 
 ### fiv_select_clients
+
+Add `fiv_select_clients` to your lane to select all, many or one client for copying client specific resources before your app build in a loop.
+
+For example you have the following app clients:
+
+- clients
+  - companyA
+    - resources
+    - ...
+  - companyB
+  - companyZ
+
+`fiv_select_clients()` lets you select all, many or one client and returns an array of client names.
+
+```ruby
+clients = fiv_select_clients()
+
+clients.each do |client|
+  # copy client resources e.g. "cp ../clients/#{client}/resources ../"
+  # build app
+end
+```
+
+#### CI
+
+Clients selection can also be passed as an option for a non interactive environment. Add the option `clients` to `before_all` and assign it to an environment variable `CLIENTS`.
+
+```ruby
+before_all do |lane, options|
+  ENV["CLIENTS"] = options[:clients]
+end
+```
+
+Seperate clients by `,`:
+
+`fastlane example_lane clients:companyA,companyB`
+
+#### Options
+
+| Options        | Description                                | Type     | Default   |
+| -------------- | ------------------------------------------ | -------- | --------- |
+| clients_folder | Path to your clients white label resources | `string` | `clients` |
 
 ### fiv_sign_android
 
