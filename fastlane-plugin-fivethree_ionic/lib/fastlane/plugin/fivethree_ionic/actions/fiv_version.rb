@@ -9,20 +9,19 @@ module Fastlane
         version_and_build_no = Fastlane::Actions::FivUpdateVersionAndBuildNoAction.run(ios: params[:ios],pathToConfigXML:params[:pathToConfigXML])
         
         Fastlane::Actions::FivBumpVersionAction.run(
-          message: "Version Bump: build #{version_and_build_no[:build_no]}, version: #{version_and_build_no[:version]}"
+          message: "fastlane(#{params[:ios] ? "ios" : "android"}): build #{version_and_build_no[:build_no]}, version: #{version_and_build_no[:version]}"
           )
 
 
-          Fastlane::Actions::PushToGitRemoteAction.run(
-            remote: params[:remote],
-            local_branch: params[:local_branch],
-            remote_branch: params[:remote_branch],
-            force: params[:force],
-            tags: params[:tags]
-          )
+        Fastlane::Actions::PushToGitRemoteAction.run(
+          remote: params[:remote],
+          local_branch: params[:local_branch],
+          remote_branch: params[:remote_branch],
+          force: params[:force],
+          tags: params[:tags]
+        )
 
-          return version_and_build_no
-
+        return version_and_build_no
       end
 
       #####################################################
@@ -98,7 +97,7 @@ FastlaneCore::ConfigItem.new(key: :pathToConfigXML,
 
       def self.authors
         # So no one will ever forget your contribution to fastlane :) You are awesome btw!
-        ["Your GitHub/Twitter Name"]
+        ["garygrossgarten"]
       end
 
       def self.is_supported?(platform)
