@@ -15,9 +15,25 @@ lane :select_clients do |options|
   puts("These clients are selected #{clients}")
 end
 
-lane :select_client_env do
+lane :select_client_env do |options|
   client = fiv_select_client()
   env = fiv_select_env(client: client)
 
   puts("This client #{client} and environment #{env} is selected")
 end
+
+lane :sign_android_apk do |options|
+
+  # run ionic cordova build android --prod --release
+
+  apk_path = fiv_sign_android(
+    keystore_name: "pizza",
+    key_alias: "pizza",
+    app_version: "1.0.1",
+    app_build_no: "2020",
+    apk_output_dir: "./apk",
+    silent: true
+  )
+end
+
+

@@ -21,27 +21,37 @@ This will add `gem 'fastlane-plugin-fivethree_ionic'` in the `fastlane/Pluginfil
 
 This [Fastfile](./fastlane-plugin-fivethree_ionic/fastlane/Fastfile) contains example of the following actions.
 
-| Action                                                              | Description                                               |
-| ------------------------------------------------------------------- | --------------------------------------------------------- |
+| Action                                                              | Description                                                   |
+| ------------------------------------------------------------------- | ------------------------------------------------------------- |
 | [fiv_add_transparent_statusbar](#fiv_add_transparent_statusbar)     |
 | [fiv_build_ionic_android](#fiv_build_ionic_android)                 |
-| [fiv_android_keystore_action](#fiv_android_keystore_action)         |
+| [fiv_android_keystore](#fiv_android_keystore)                       | Generate an Android keystore file or validate keystore exists |
 | [fiv_build_ionic_android](#fiv_build_ionic_android)                 |
 | [fiv_bump_version](#fiv_bump_version)                               |
 | [fiv_clean_install](#fiv_clean_install)                             |
 | [fiv_increment_build_no](#fiv_increment_build_no)                   |
-| [fiv_ionic](#fiv_ionic)                                             | Build your Ionic app for a specific platform              |
-| [fiv_select_client](#fiv_select_client)                             | Select a client for white labeling the app                |
-| [fiv_select_clients](#fiv_select_clients)                           | Select all, many or one client for white labeling the app |
-| [fiv_select_env](#fiv_select_env)                                   | Select an environment folder for white labeling the app   |
-| [fiv_sign_android](#fiv_sign_android)                               | Zipalign, sign and verify apk                             |
+| [fiv_ionic](#fiv_ionic)                                             | Build your Ionic app for a specific platform                  |
+| [fiv_select_client](#fiv_select_client)                             | Select a client for white labeling the app                    |
+| [fiv_select_clients](#fiv_select_clients)                           | Select all, many or one client for white labeling the app     |
+| [fiv_select_env](#fiv_select_env)                                   | Select an environment folder for white labeling the app       |
+| [fiv_sign_android](#fiv_sign_android)                               | Zipalign, sign and verify apk                                 |
 | [fiv_update_version](#fiv_update_version)                           |
 | [fiv_update_version_and_build_no](#fiv_update_version_and_build_no) |
 | [fiv_version](#fiv_version)                                         |
 
 ### fiv_add_transparent_statusbar
 
-### fiv_android_keystore_action
+### fiv_android_keystore
+
+Generate an Android keystore file or validate keystore exists
+
+#### Options
+
+| Options       | Description               | Type     | Default              | Required |
+| ------------- | ------------------------- | -------- | -------------------- | -------- |
+| keystore_path | Path to the android       | `string` | `./fastlane/android` | `false`  |
+| keystore_name | Name of the keystore      | `string` |                      | `true`   |
+| key_alias     | Key alias of the keystore | `string` |                      | `true`   |
 
 ### fiv_build_ionic_android
 
@@ -220,16 +230,34 @@ end
 
 ### fiv_sign_android
 
+Zipaligns, [signs v2](https://source.android.com/security/apksigning/v2) and verifys an apk with a keystore. If the keystore does not exists it uses `fiv_android_keystore` to create a new keystore.
+
 ```ruby
-fiv_sign_android(
-  output_directory: "OUTPUT_DIR",
-  keystore_name: "KEYSTORE_NAME",
-  alias: "KEYSTORE_ALIAS",
-  version: "APP_VERSION",
-  build_no: "BUILD_NO",
+# run before signing: ionic cordova build android --prod --release
+
+apk_path = fiv_sign_android(
+  keystore_name: "pizza",
+  key_alias: "pizza",
+  app_version: "1.0.1",
+  app_build_no: "2020",
+  apk_output_dir: "../apk",
   silent: true
 )
 ```
+
+#### Options
+
+| Options                    | Description                                                          | Type      | Default                                              | Required |
+| -------------------------- | -------------------------------------------------------------------- | --------- | ---------------------------------------------------- | -------- |
+| keystore_path              | Path to the android                                                  | `string`  | `./fastlane/android`                                 | `false`  |
+| keystore_name              | Name of the keystore used to store storepass and keypass in keychain | `string`  |                                                      | `true`   |
+| android_sdk_path           | Path to your installed Android SDK                                   | `string`  | `~/Library/Android/sdk`                              | `false`  |
+| android_build_tool_version | Android Build Tool version used for `zipalign`, `sign` and `verify`  | `string`  | `28.0.3`                                             | `false`  |
+| apk_output_dir             | Android Build Tool version used for `zipalign`, `sign` and `verify`  | `string`  | `../platforms/android/app/build/outputs/apk/release` | `false`  |
+| key_alias                  | Key alias of the keystore                                            | `string`  |                                                      | `true`   |
+| app_version                | App version                                                          | `string`  |                                                      | `true`   |
+| app_build_no               | App build number                                                     | `string`  |                                                      | `true`   |
+| silent                     | Wether to sign android silently                                      | `boolean` |                                                      | `true`   |
 
 ### fiv_update_version
 
