@@ -120,9 +120,9 @@ end
 
 #### Options
 
-| Options        | Description                                | Type     | Default   |
-| -------------- | ------------------------------------------ | -------- | --------- |
-| clients_folder | Path to your clients white label resources | `string` | `clients` |
+| Options        | Description                                | Type     | Default   | Required |
+| -------------- | ------------------------------------------ | -------- | --------- | -------- |
+| clients_folder | Path to your clients white label resources | `string` | `clients` | `false`  |
 
 ### fiv_select_clients
 
@@ -164,9 +164,9 @@ Seperate clients by `,`:
 
 #### Options
 
-| Options        | Description                                | Type     | Default   |
-| -------------- | ------------------------------------------ | -------- | --------- |
-| clients_folder | Path to your clients white label resources | `string` | `clients` |
+| Options        | Description                                | Type     | Default   | Required |
+| -------------- | ------------------------------------------ | -------- | --------- | -------- |
+| clients_folder | Path to your clients white label resources | `string` | `clients` | `false`  |
 
 ### fiv_select_env
 
@@ -212,11 +212,11 @@ end
 
 #### Options
 
-| Options             | Description                                     | Type     | Default        |
-| ------------------- | ----------------------------------------------- | -------- | -------------- |
-| clients_folder      | Path to your clients white label resources      | `string` | `clients`      |
-| environments_folder | Path to your environments white label resources | `string` | `environments` |
-| client              | Path to your selected client                    | `string` |                |
+| Options             | Description                                     | Type     | Default        | Required |
+| ------------------- | ----------------------------------------------- | -------- | -------------- | -------- |
+| clients_folder      | Path to your clients white label resources      | `string` | `clients`      | `false`  |
+| environments_folder | Path to your environments white label resources | `string` | `environments` | `false`  |
+| client              | Path to your selected client                    | `string` |                | `true`   |
 
 ### fiv_sign_android
 
