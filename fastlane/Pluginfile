@@ -2,4 +2,4 @@
 #
 # Ensure this file is checked in to source control!
 
-gem 'fastlane-plugin-fivethree_ionic', path: '/Users/garygrossgarten/Dev/things/fivethree-fastlane/fastlane-plugin-fivethree_ionic'
+gem 'fastlane-plugin-fivethree_ionic', path: '../fastlane-plugin-fivethree_ionic'
