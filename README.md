@@ -19,6 +19,8 @@ This will add `gem 'fastlane-plugin-fivethree_ionic'` in the `fastlane/Pluginfil
 
 ## Actions
 
+This [Fastfile](./fastlane-plugin-fivethree_ionic/fastlane/Fastfile) contains example of the following actions.
+
 | Action                                                              | Description                                               |
 | ------------------------------------------------------------------- | --------------------------------------------------------- |
 | [fiv_add_transparent_statusbar](#fiv_add_transparent_statusbar)     |
@@ -31,6 +33,7 @@ This will add `gem 'fastlane-plugin-fivethree_ionic'` in the `fastlane/Pluginfil
 | [fiv_ionic](#fiv_ionic)                                             | Build your Ionic app for a specific platform              |
 | [fiv_select_client](#fiv_select_client)                             | Select a client for white labeling the app                |
 | [fiv_select_clients](#fiv_select_clients)                           | Select all, many or one client for white labeling the app |
+| [fiv_select_env](#fiv_select_env)                                   | Select an environment folder for white labeling the app   |
 | [fiv_sign_android](#fiv_sign_android)                               |
 | [fiv_update_version](#fiv_update_version)                           |
 | [fiv_update_version_and_build_no](#fiv_update_version_and_build_no) |
@@ -164,6 +167,48 @@ Seperate clients by `,`:
 | Options        | Description                                | Type     | Default   |
 | -------------- | ------------------------------------------ | -------- | --------- |
 | clients_folder | Path to your clients white label resources | `string` | `clients` |
+
+### fiv_select_env
+
+Add `fiv_select_env` to your lane to select an environment of a client for copying specific resources for this environment before your app build. e.g the resources or app icon and splash screen might differ for each environment.
+
+For example you have the following app clients with different environments:
+
+- clients
+  - companyA
+    - resources
+    - environment
+      - prod
+        - resources
+      - qa
+        - resources
+      - test
+        - resorces
+  - companyB
+  - companyZ
+
+`fiv_select_env()` lets you select one client and returns the client name.
+
+```ruby
+client = fiv_select_client()
+env = fiv_select_env(client: client)
+
+# copy client resources from environment e.g. "cp ../clients/#{client}/enviroment/#{env}/resources ../"
+# build app
+```
+
+#### CI
+
+Environment selection can also be passed as an option for a non interactive environment. Add the option `env` to `before_all` and assign it to an environment variable `ENV`.
+
+```ruby
+before_all do |lane, options|
+  ENV["CLIENT"] = options[:client]
+  ENV["ENV"] = options[:env]
+end
+```
+
+`fastlane example_lane client:companyA env:prod`
 
 ### fiv_sign_android
 

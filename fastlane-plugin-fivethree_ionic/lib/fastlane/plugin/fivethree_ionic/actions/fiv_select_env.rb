@@ -32,7 +32,7 @@ module Fastlane
             [
                 FastlaneCore::ConfigItem.new(
                     key: :clients_folder,
-                    env_name: "CLIENTS_FOLDER", # The name of the environment variable
+                    env_name: "FIV_CLIENTS_FOLDER", # The name of the environment variable
                     description: "Clients folder path for SelectEnvAction", # a short description of this parameter
                     default_value: "clients",
                     is_string: true,
@@ -42,7 +42,7 @@ module Fastlane
                     end),
                     FastlaneCore::ConfigItem.new(
                       key: :environment,
-                      env_name: "FIV_CLIENTS_FOLDER", # The name of the environment variable
+                      env_name: "FIV_ENVIRONMENT", # The name of the environment variable
                       description: "Environment folder path for SelectEnvAction", # a short description of this parameter
                       default_value: "environment",
                       is_string: true,
@@ -51,7 +51,7 @@ module Fastlane
                       end),
                 FastlaneCore::ConfigItem.new(
                     key: :client,
-                    env_name: "CLIENT_FOLDER", # The name of the environment variable
+                    env_name: "FIV_CLIENT", # The name of the environment variable
                     description: "Client folder path for SelectEnvAction", # a short description of this parameter
                     is_string: true,
                     verify_block: proc do |value|

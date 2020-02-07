@@ -1,5 +1,26 @@
+before_all do |lane, options|
+  ENV["CLIENT"] = options[:client]
+  ENV["ENV"] = options[:env]
+end
+
+lane :select_client do |options|
+  client = fiv_select_client()
+
+  puts("This client is selected #{client}")
+end
+
+lane :select_clients do |options|
+  clients = fiv_select_clients()
+
+  puts("These clients are selected #{clients}")
+end
+
 lane :test do
 
-  a = fiv_select_client(clients_folder: "../e2e")
-  b = fiv_select_clients(clients_folder: "../e2e")
+  client = fiv_select_client()
+  env = fiv_select_env(client: client)
+
+
+
+  b = fiv_select_clients()
 end
