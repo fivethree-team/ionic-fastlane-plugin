@@ -34,7 +34,7 @@ This [Fastfile](./fastlane-plugin-fivethree_ionic/fastlane/Fastfile) contains ex
 | [fiv_select_client](#fiv_select_client)                             | Select a client for white labeling the app                |
 | [fiv_select_clients](#fiv_select_clients)                           | Select all, many or one client for white labeling the app |
 | [fiv_select_env](#fiv_select_env)                                   | Select an environment folder for white labeling the app   |
-| [fiv_sign_android](#fiv_sign_android)                               |
+| [fiv_sign_android](#fiv_sign_android)                               | Zipalign, sign and verify apk                             |
 | [fiv_update_version](#fiv_update_version)                           |
 | [fiv_update_version_and_build_no](#fiv_update_version_and_build_no) |
 | [fiv_version](#fiv_version)                                         |
@@ -209,6 +209,14 @@ end
 ```
 
 `fastlane example_lane client:companyA env:prod`
+
+#### Options
+
+| Options             | Description                                     | Type     | Default        |
+| ------------------- | ----------------------------------------------- | -------- | -------------- |
+| clients_folder      | Path to your clients white label resources      | `string` | `clients`      |
+| environments_folder | Path to your environments white label resources | `string` | `environments` |
+| client              | Path to your selected client                    | `string` |                |
 
 ### fiv_sign_android
 

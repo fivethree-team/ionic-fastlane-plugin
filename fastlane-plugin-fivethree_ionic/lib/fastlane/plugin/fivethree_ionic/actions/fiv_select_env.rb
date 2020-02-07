@@ -2,9 +2,9 @@ module Fastlane
     module Actions
       class FivSelectEnvAction < Action
         def self.run(params)
-            Dir.chdir "#{params[:clients_folder]}/#{params[:client]}/#{params[:environment]}" do
-                environment_folders = Dir.glob('*').sort.select {|f| File.directory? f}
-                if (ENV["ENV"] && environment_folders.include?(ENV["ENV"]))
+            Dir.chdir "#{params[:clients_folder]}/#{params[:client]}/#{params[:environments_folder]}" do
+                environment = Dir.glob('*').sort.select {|f| File.directory? f}
+                if (ENV["ENV"] && environment.include?(ENV["ENV"]))
                   puts("
                   ***********************************************
                     Selected environment: #{ENV["ENV"]}
@@ -13,7 +13,7 @@ module Fastlane
                   return ENV["ENV"]
                 end
 
-                selected_env = UI.select("Select one environment: ", environment_folders)
+                selected_env = UI.select("Select one environment: ", environment)
 
                 puts("
                 ***********************************************
@@ -41,10 +41,10 @@ module Fastlane
                         UI.user_error!("Couldn't find clients folder at path '#{value}'") unless File.directory?(value)
                     end),
                     FastlaneCore::ConfigItem.new(
-                      key: :environment,
-                      env_name: "FIV_ENVIRONMENT", # The name of the environment variable
+                      key: :environments_folder,
+                      env_name: "FIV_ENVIRONMENT_FOLDER", # The name of the environment variable
                       description: "Environment folder path for SelectEnvAction", # a short description of this parameter
-                      default_value: "environment",
+                      default_value: "environments",
                       is_string: true,
                       verify_block: proc do |value|
                           UI.user_error!("No environment folder path for SelectClientAction given, pass using `environment: '../path_to_environment_folder'`") unless (value and not value.empty?)

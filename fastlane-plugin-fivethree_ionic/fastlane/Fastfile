@@ -15,12 +15,9 @@ lane :select_clients do |options|
   puts("These clients are selected #{clients}")
 end
 
-lane :test do
-
+lane :select_client_env do
   client = fiv_select_client()
   env = fiv_select_env(client: client)
 
-
-
-  b = fiv_select_clients()
+  puts("This client #{client} and environment #{env} is selected")
 end
