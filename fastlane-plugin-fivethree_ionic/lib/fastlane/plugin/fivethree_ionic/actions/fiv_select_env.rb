@@ -54,6 +54,7 @@ module Fastlane
                     env_name: "FIV_CLIENT", # The name of the environment variable
                     description: "Client folder path for SelectEnvAction", # a short description of this parameter
                     is_string: true,
+                    optional: false,
                     verify_block: proc do |value|
                         UI.user_error!("No client folder path for SelectEnvAction given, pass using `client: '../path_to_client_folder'`") unless (value and not value.empty?)
                     end)
