@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'fastlane-plugin-fivethree_ionic'
   spec.version       = Fastlane::FivethreeIonic::VERSION
   spec.author        = 'Marc Stammerjohann'
-  spec.email         = 'marcstammerjohann@web.de'
+  spec.email         = 'marc@fivethree.io'
 
   spec.summary       = 'Fastlane plugin for Ionic v4 Projects'
   # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-fivethree_ionic"
