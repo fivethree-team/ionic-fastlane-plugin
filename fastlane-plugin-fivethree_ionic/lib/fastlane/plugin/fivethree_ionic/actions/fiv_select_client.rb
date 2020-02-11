@@ -4,16 +4,17 @@ module Fastlane
         def self.run(params)
             Dir.chdir "#{params[:clients_folder]}" do
                 clients_folders = Dir.glob('*').sort.select {|f| File.directory? f}
-                if (ENV["CLIENT"])
-                  if (clients_folders.include?(ENV["CLIENT"]))
+                client = ENV["CLIENT"] || params[:client]
+                if (client)
+                  if (clients_folders.include?(client))
                     puts("
                       ***********************************************
-                        Selected client: #{ENV["CLIENT"]}
+                        Selected client: #{client}
                       ***********************************************
                       ")
-                      return ENV["CLIENT"]
+                      return client
                   else
-                      UI.user_error!("Client #{ENV["CLIENT"]} is not available.")
+                      UI.user_error!("Client #{client} is not available.")
                   end
                 end
                 
@@ -43,7 +44,12 @@ module Fastlane
                     verify_block: proc do |value|
                         UI.user_error!("No client folder path for SelectClientAction given, pass using `client_folder: '../path_to_clients_folder'`") unless (value and not value.empty?)
                         UI.user_error!("Couldn't find clients folder at path '#{value}'") unless File.directory?(value)
-                    end)
+                    end),
+                    FastlaneCore::ConfigItem.new(
+                    key: : client,
+                    env_name: "FIV_CLIENT", # The name of the environment variable
+                    description: "client to select", # a short description of this parameter",
+                    is_string: true)
               ]
         end
   
