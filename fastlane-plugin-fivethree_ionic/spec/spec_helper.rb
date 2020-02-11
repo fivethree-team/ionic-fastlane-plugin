@@ -6,8 +6,7 @@ require 'simplecov'
 SimpleCov.start
 
 # This module is only used to check the environment is currently a testing env
-module SpecHelper
-end
+module SpecHelper; end
 
 require 'fastlane' # to import the Action super class
 require 'fastlane/plugin/fivethree_ionic' # import the actual plugin

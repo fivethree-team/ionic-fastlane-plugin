@@ -4,40 +4,64 @@ module Fastlane
       def self.run(params)
         keystore_path = Fastlane::Actions::FivAndroidKeystoreAction.run(params)
 
-        keychain_entry = CredentialsManager::AccountManager.new(user: "#{params[:keystore_name]}_android_keystore_storepass")
+        keychain_entry =
+          CredentialsManager::AccountManager.new(
+            user: "#{params[:keystore_name]}_android_keystore_storepass"
+          )
         keystore_storepass = keychain_entry.password
 
-        keychain_entry = CredentialsManager::AccountManager.new(user: "#{params[:keystore_name]}_android_keystore_keypass")
+        keychain_entry =
+          CredentialsManager::AccountManager.new(
+            user: "#{params[:keystore_name]}_android_keystore_keypass"
+          )
         keystore_keypass = keychain_entry.password
 
         puts "You can delete the password if they are wrong stored in the keychain: 'fastlane fastlane-credentials remove --username android_keystore_storepass' and 'fastlane fastlane-credentials remove --username android_keystore_keypass'"
 
-        android_build_tool_path = "#{params[:android_sdk_path]}/build-tools/#{params[:android_build_tool_version]}"
+        android_build_tool_path =
+          "#{params[:android_sdk_path]}/build-tools/#{
+            params[:android_build_tool_version]
+          }"
 
         # zipalign APK
-        remove_zipalign = "rm -Rf ../platforms/android/app/build/outputs/apk/release/app-release-unsigned-zipalign.apk"
+        remove_zipalign =
+          'rm -Rf ../platforms/android/app/build/outputs/apk/release/app-release-unsigned-zipalign.apk'
         sh remove_zipalign
-        zipalign = "#{android_build_tool_path}/zipalign -v 4 \
+        zipalign =
+          "#{
+            android_build_tool_path
+          }/zipalign -v 4 \
           ../platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk \
           ../platforms/android/app/build/outputs/apk/release/app-release-unsigned-zipalign.apk"
         sh zipalign
 
-        if(!File.directory?(params[:apk_output_dir]))
+        if (!File.directory?(params[:apk_output_dir]))
           Dir.mkdir params[:apk_output_dir]
         end
-        output_path = "#{params[:apk_output_dir]}/app-release-#{params[:app_version]}-#{params[:app_build_no]}.apk"
-        
-        sign = "#{android_build_tool_path}/apksigner sign \
-          --ks #{keystore_path} \
-          --ks-key-alias #{params[:key_alias]} \
+        output_path =
+          "#{params[:apk_output_dir]}/app-release-#{params[:app_version]}-#{
+            params[:app_build_no]
+          }.apk"
+
+        sign =
+          "#{android_build_tool_path}/apksigner sign \
+          --ks #{
+            keystore_path
+          } \
+          --ks-key-alias #{
+            params[:key_alias]
+          } \
           --ks-pass pass:#{keystore_keypass} \
-          --out #{output_path} \
+          --out #{
+            output_path
+          } \
           ../platforms/android/app/build/outputs/apk/release/app-release-unsigned-zipalign.apk"
         self.run_shell_script(sign, params[:silent])
 
-        verify = ("#{android_build_tool_path}/apksigner verify -v #{output_path}")
+        verify =
+          ("#{android_build_tool_path}/apksigner verify -v #{output_path}")
         self.run_shell_script(verify, params[:silent])
-    
+
         return output_path
       end
 
@@ -46,78 +70,85 @@ module Fastlane
       #####################################################
 
       def self.description
-        "Zipalign, sign and verify android apk"
+        'Zipalign, sign and verify android apk'
       end
 
       def self.run_shell_script(command, silent)
-        Fastlane::Actions::sh(command, log: silent)
+        Fastlane::Actions.sh(command, log: silent)
       end
 
       def self.details
         # Optional:
         # this is your chance to provide a more detailed description of this action
-        "You can use this action to do cool things..."
+        'You can use this action to do cool things...'
       end
 
       def self.available_options
-        # Define all options your action supports. 
-        
+        # Define all options your action supports.
+
         # Below a few examples
         [
           FastlaneCore::ConfigItem.new(
             key: :keystore_path,
-            env_name: "FIV_KEYSTORE_PATH",
-            description: "Path to android keystore",
+            env_name: 'FIV_KEYSTORE_PATH',
+            description: 'Path to android keystore',
             is_string: true,
-            default_value: "./fastlane/android"),
+            default_value: './fastlane/android'
+          ),
           FastlaneCore::ConfigItem.new(
             key: :keystore_name,
-            env_name: "FIV_KEYSTORE_NAME",
-            description: "Name of the keystore",
+            env_name: 'FIV_KEYSTORE_NAME',
+            description: 'Name of the keystore',
             is_string: true,
-            optional: false),
+            optional: false
+          ),
           FastlaneCore::ConfigItem.new(
             key: :android_sdk_path,
-            env_name: "FIV_ANDROID_SDK_PATH",
-            description: "Path to your installed Android SDK",
+            env_name: 'FIV_ANDROID_SDK_PATH',
+            description: 'Path to your installed Android SDK',
             is_string: true,
-            default_value: "~/Library/Android/sdk"),
+            default_value: '~/Library/Android/sdk'
+          ),
           FastlaneCore::ConfigItem.new(
             key: :android_build_tool_version,
-            env_name: "FIV_ANDROID_SDK_BUILD_TOOL_VERSION",
-            description: "Android Build Tool version used for `zipalign`, `sign` and `verify`",
+            env_name: 'FIV_ANDROID_SDK_BUILD_TOOL_VERSION',
+            description:
+              'Android Build Tool version used for `zipalign`, `sign` and `verify`',
             is_string: true,
-            default_value: "28.0.3"),
+            default_value: '28.0.3'
+          ),
           FastlaneCore::ConfigItem.new(
             key: :apk_output_dir,
-            env_name: "FIV_APK_OUTPUT_DIR",
-            description: "Output path of the signed apk",
+            env_name: 'FIV_APK_OUTPUT_DIR',
+            description: 'Output path of the signed apk',
             is_string: true,
-            default_value: "../platforms/android/app/build/outputs/apk/release"),
+            default_value: '../platforms/android/app/build/outputs/apk/release'
+          ),
           FastlaneCore::ConfigItem.new(
             key: :key_alias,
-            env_name: "FIV_ANDROID_KEYSTORE_ALIAS",
-            description: "Key alias of the keystore",
+            env_name: 'FIV_ANDROID_KEYSTORE_ALIAS',
+            description: 'Key alias of the keystore',
             is_string: true,
-            optional: false),
+            optional: false
+          ),
           FastlaneCore::ConfigItem.new(
             key: :app_version,
-            env_name: "FIV_APP_VERSION",
-            description: "App version",
+            env_name: 'FIV_APP_VERSION',
+            description: 'App version',
             is_string: true,
             default_value: ''
           ),
           FastlaneCore::ConfigItem.new(
             key: :app_build_no,
-            env_name: "FIV_APP_BUILD_NO",
-            description: "App build number",
+            env_name: 'FIV_APP_BUILD_NO',
+            description: 'App build number',
             is_string: true,
             default_value: ''
           ),
           FastlaneCore::ConfigItem.new(
             key: :silent,
-            env_name: "FIV_SIGN_ANDROID_SILENT",
-            description: "Wether to sign android silently",
+            env_name: 'FIV_SIGN_ANDROID_SILENT',
+            description: 'Wether to sign android silently',
             is_string: false,
             default_value: true
           )
@@ -128,7 +159,10 @@ module Fastlane
         # Define the shared values you are going to provide
         # Example
         [
-          ['FIV_BUILD_IONIC_ANDROID_CUSTOM_VALUE', 'A description of what this value contains']
+          [
+            'FIV_BUILD_IONIC_ANDROID_CUSTOM_VALUE',
+            'A description of what this value contains'
+          ]
         ]
       end
 
@@ -138,11 +172,11 @@ module Fastlane
 
       def self.authors
         # So no one will ever forget your contribution to fastlane :) You are awesome btw!
-        ["marcjulian"]
+        %w[marcjulian]
       end
 
       def self.is_supported?(platform)
-       platform == :android
+        platform == :android
       end
     end
   end

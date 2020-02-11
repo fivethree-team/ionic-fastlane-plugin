@@ -1,17 +1,25 @@
 module Fastlane
   module Actions
     module SharedValues
-      FIV_BUILD_IONIC_ANDROID_CUSTOM_VALUE = :FIV_BUILD_IONIC_ANDROID_CUSTOM_VALUE
+      FIV_BUILD_IONIC_ANDROID_CUSTOM_VALUE =
+        :FIV_BUILD_IONIC_ANDROID_CUSTOM_VALUE
     end
 
     class FivVersionAction < Action
       def self.run(params)
-        version_and_build_no = Fastlane::Actions::FivUpdateVersionAndBuildNoAction.run(ios: params[:ios],pathToConfigXML: params[:pathToConfigXML],skip_version: params[:skip_version])
-        
-        Fastlane::Actions::FivBumpVersionAction.run(
-          message: "fastlane(#{params[:ios] ? "ios" : "android"}): build #{version_and_build_no[:build_no]}, version: #{version_and_build_no[:version]}"
+        version_and_build_no =
+          Fastlane::Actions::FivUpdateVersionAndBuildNoAction.run(
+            ios: params[:ios],
+            pathToConfigXML: params[:pathToConfigXML],
+            skip_version: params[:skip_version]
           )
 
+        Fastlane::Actions::FivBumpVersionAction.run(
+          message:
+            "fastlane(#{params[:ios] ? 'ios' : 'android'}): build #{
+              version_and_build_no[:build_no]
+            }, version: #{version_and_build_no[:version]}"
+        )
 
         Fastlane::Actions::PushToGitRemoteAction.run(
           remote: params[:remote],
@@ -29,62 +37,85 @@ module Fastlane
       #####################################################
 
       def self.description
-        "A short description with <= 80 characters of what this action does"
+        'A short description with <= 80 characters of what this action does'
       end
 
       def self.details
         # Optional:
         # this is your chance to provide a more detailed description of this action
-        "You can use this action to do cool things..."
+        'You can use this action to do cool things...'
       end
 
       def self.available_options
-        # Define all options your action supports. 
-        
+        # Define all options your action supports.
+
         # Below a few examples
         [
-          FastlaneCore::ConfigItem.new(key: :ios,
-          env_name: "FIV_INCREMENT_BUILD_NO_IOS",
-       description: "---",
-          optional: false,
-              type: Boolean),
-FastlaneCore::ConfigItem.new(key: :pathToConfigXML,
-          env_name: "FIV_INCREMENT_BUILD_CONFIG",
-       description: "---",
-          optional: false,
-          verify_block: proc do | value |
-            UI.user_error!("Couldnt find config.xml! Please change your path.") unless File.exist?(value)
-          end  ,
-              type: String),
-              FastlaneCore::ConfigItem.new(key: :local_branch,
-                                       env_name: "FL_GIT_PUSH_LOCAL_BRANCH",
-                                       description: "The local branch to push from. Defaults to the current branch",
-                                       default_value_dynamic: true,
-                                       optional: true),
-          FastlaneCore::ConfigItem.new(key: :remote_branch,
-                                       env_name: "FL_GIT_PUSH_REMOTE_BRANCH",
-                                       description: "The remote branch to push to. Defaults to the local branch",
-                                       default_value_dynamic: true,
-                                       optional: true),
-          FastlaneCore::ConfigItem.new(key: :force,
-                                       env_name: "FL_PUSH_GIT_FORCE",
-                                       description: "Force push to remote",
-                                       is_string: false,
-                                       default_value: false),
-          FastlaneCore::ConfigItem.new(key: :tags,
-                                       env_name: "FL_PUSH_GIT_TAGS",
-                                       description: "Whether tags are pushed to remote",
-                                       is_string: false,
-                                       default_value: true),
-          FastlaneCore::ConfigItem.new(key: :remote,
-                                       env_name: "FL_GIT_PUSH_REMOTE",
-                                       description: "The remote to push to",
-                                       default_value: 'origin'),
-          FastlaneCore::ConfigItem.new(key: :skip_version,
-                                      env_name: "FIV_SKIP_VERSION",
-                                      description: "---",
-                                      optional: false,
-                                          type: Boolean),
+          FastlaneCore::ConfigItem.new(
+            key: :ios,
+            env_name: 'FIV_INCREMENT_BUILD_NO_IOS',
+            description: '---',
+            optional: false,
+            type: Boolean
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :pathToConfigXML,
+            env_name: 'FIV_INCREMENT_BUILD_CONFIG',
+            description: '---',
+            optional: false,
+            verify_block:
+              proc do |value|
+                unless File.exist?(value)
+                  UI.user_error!(
+                    'Couldnt find config.xml! Please change your path.'
+                  )
+                end
+              end,
+            type: String
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :local_branch,
+            env_name: 'FL_GIT_PUSH_LOCAL_BRANCH',
+            description:
+              'The local branch to push from. Defaults to the current branch',
+            default_value_dynamic: true,
+            optional: true
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :remote_branch,
+            env_name: 'FL_GIT_PUSH_REMOTE_BRANCH',
+            description:
+              'The remote branch to push to. Defaults to the local branch',
+            default_value_dynamic: true,
+            optional: true
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :force,
+            env_name: 'FL_PUSH_GIT_FORCE',
+            description: 'Force push to remote',
+            is_string: false,
+            default_value: false
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :tags,
+            env_name: 'FL_PUSH_GIT_TAGS',
+            description: 'Whether tags are pushed to remote',
+            is_string: false,
+            default_value: true
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :remote,
+            env_name: 'FL_GIT_PUSH_REMOTE',
+            description: 'The remote to push to',
+            default_value: 'origin'
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :skip_version,
+            env_name: 'FIV_SKIP_VERSION',
+            description: '---',
+            optional: false,
+            type: Boolean
+          )
         ]
       end
 
@@ -92,7 +123,10 @@ FastlaneCore::ConfigItem.new(key: :pathToConfigXML,
         # Define the shared values you are going to provide
         # Example
         [
-          ['FIV_BUILD_IONIC_ANDROID_CUSTOM_VALUE', 'A description of what this value contains']
+          [
+            'FIV_BUILD_IONIC_ANDROID_CUSTOM_VALUE',
+            'A description of what this value contains'
+          ]
         ]
       end
 
@@ -102,11 +136,11 @@ FastlaneCore::ConfigItem.new(key: :pathToConfigXML,
 
       def self.authors
         # So no one will ever forget your contribution to fastlane :) You are awesome btw!
-        ["garygrossgarten"]
+        %w[garygrossgarten]
       end
 
       def self.is_supported?(platform)
-       platform == :android
+        platform == :android
       end
     end
   end

@@ -11,6 +11,4 @@ end
 
 # By default we want to import all available actions and helpers
 # A plugin can contain any number of actions and plugins
-Fastlane::FivethreeIonic.all_classes.each do |current|
-  require current
-end
+Fastlane::FivethreeIonic.all_classes.each { |current| require current }
