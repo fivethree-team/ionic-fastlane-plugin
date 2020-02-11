@@ -79,7 +79,12 @@ FastlaneCore::ConfigItem.new(key: :pathToConfigXML,
           FastlaneCore::ConfigItem.new(key: :remote,
                                        env_name: "FL_GIT_PUSH_REMOTE",
                                        description: "The remote to push to",
-                                       default_value: 'origin')
+                                       default_value: 'origin'),
+          FastlaneCore::ConfigItem.new(key: :skip_version,
+                                      env_name: "FIV_SKIP_VERSION",
+                                      description: "---",
+                                      optional: false,
+                                          type: Boolean),
         ]
       end
 

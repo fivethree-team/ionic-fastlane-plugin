@@ -56,7 +56,12 @@ module Fastlane
           verify_block: proc do | value |
             UI.user_error!("Couldnt find config.xml! Please change your path.") unless File.exist?(value)
           end  ,
-              type: String)
+              type: String),
+              FastlaneCore::ConfigItem.new(key: :skip_version,
+                                      env_name: "FIV_SKIP_VERSION",
+                                      description: "---",
+                                      optional: false,
+                                          type: Boolean)
         ]
       end
 
