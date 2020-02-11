@@ -1,3 +1,7 @@
+<p align="center">
+  <a href="https://marketplace.visualstudio.com/items?itemName=fivethree.vscode-ionic-snippets" target="blank"><img src="https://raw.githubusercontent.com/fivethree-team/vscode-ionic-snippets/master/.assets/banner.png" width="460px" alt="Ionic Fastlane Plugin" /></a>
+</p>
+
 # ionic-fastlane-plugin
 
 [fastlane plugin](https://rubygems.org/gems/fastlane-plugin-fivethree_ionic) for Ionic 4+.
