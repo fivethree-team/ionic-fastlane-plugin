@@ -23,23 +23,27 @@ module Fastlane
             params[:android_build_tool_version]
           }"
 
+        zipalign_apk_file = params[:apk_zipalign_target]
+        if (File.file?(zipalign_apk_file))
+          remove_zipalign = "rm -Rf #{zipalign_apk_file}"
+          sh remove_zipalign
+        end
+
         # zipalign APK
-        remove_zipalign =
-          'rm -Rf ../platforms/android/app/build/outputs/apk/release/app-release-unsigned-zipalign.apk'
-        sh remove_zipalign
         zipalign =
-          "#{
-            android_build_tool_path
-          }/zipalign -v 4 \
-          ../platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk \
-          ../platforms/android/app/build/outputs/apk/release/app-release-unsigned-zipalign.apk"
+          "#{android_build_tool_path}/zipalign -v 4 \
+          #{
+            params[:apk_source]
+          } \
+          #{zipalign_apk_file}"
         sh zipalign
 
-        if (!File.directory?(params[:apk_output_dir]))
-          Dir.mkdir params[:apk_output_dir]
+        if (!File.directory?(params[:apk_signed_target]))
+          Dir.mkdir params[:apk_signed_target]
         end
+
         output_path =
-          "#{params[:apk_output_dir]}/app-release-#{params[:app_version]}-#{
+          "#{params[:apk_signed_target]}/app-release-#{params[:app_version]}-#{
             params[:app_build_no]
           }.apk"
 
@@ -55,7 +59,7 @@ module Fastlane
           --out #{
             output_path
           } \
-          ../platforms/android/app/build/outputs/apk/release/app-release-unsigned-zipalign.apk"
+          #{zipalign_apk_file}"
         self.run_shell_script(sign, params[:silent])
 
         verify =
@@ -118,11 +122,27 @@ module Fastlane
             default_value: '28.0.3'
           ),
           FastlaneCore::ConfigItem.new(
-            key: :apk_output_dir,
-            env_name: 'FIV_APK_OUTPUT_DIR',
-            description: 'Output path of the signed apk',
+            key: :apk_source,
+            env_name: 'FIV_APK_SOURCE',
+            description: 'Source path to the apk file',
             is_string: true,
-            default_value: '../platforms/android/app/build/outputs/apk/release'
+            default_value:
+              './platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk'
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :apk_zipalign_target,
+            env_name: 'FIV_APK_ZIPALIGN_TARGET',
+            description: 'Target path for the zipaligned apk',
+            is_string: true,
+            default_value:
+              './platforms/android/app/build/outputs/apk/release/app-release-unsigned-zipalign.apk'
+          ),
+          FastlaneCore::ConfigItem.new(
+            key: :apk_signed_target,
+            env_name: 'FIV_APK_SIGNED_TARGET',
+            description: 'Tarket path of the signed apk',
+            is_string: true,
+            default_value: './platforms/android/app/build/outputs/apk/release'
           ),
           FastlaneCore::ConfigItem.new(
             key: :key_alias,

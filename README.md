@@ -66,22 +66,16 @@ Generate an Android keystore file or validate keystore exists
 Build your Ionic app for iOS:
 
 ```ruby
-outputpath = fiv_ionic(
-  platform: "ios",
-  release: "true",
-  prod: "true",
-  team_id: "YOUR_TEAM_ID"
-)
+outputpath =
+  fiv_ionic(
+    platform: 'ios', release: 'true', prod: 'true', team_id: 'YOUR_TEAM_ID'
+  )
 ```
 
 Build your Ionic app for Android:
 
 ```ruby
-outputpath = fiv_ionic(
-  platform: "android",
-  release: "true",
-  prod: "true"
-)
+outputpath = fiv_ionic(platform: 'android', release: 'true', prod: 'true')
 ```
 
 #### Options
@@ -110,7 +104,7 @@ For example you have the following app clients:
 `fiv_select_client()` lets you select one client and returns the client name.
 
 ```ruby
-client = fiv_select_client()
+client = fiv_select_client
 
 # copy client resources e.g. "cp ../clients/#{client}/resources ../"
 # build app
@@ -121,9 +115,7 @@ client = fiv_select_client()
 Client selection can also be passed as an option for a non interactive environment. Add the option `client` to `before_all` and assign it to an environment variable `CLIENT`.
 
 ```ruby
-before_all do |lane, options|
-  ENV["CLIENT"] = options[:client]
-end
+before_all { |lane, options| ENV['CLIENT'] = options[:client] }
 ```
 
 `fastlane example_lane client:companyA`
@@ -150,12 +142,9 @@ For example you have the following app clients:
 `fiv_select_clients()` lets you select all, many or one client and returns an array of client names.
 
 ```ruby
-clients = fiv_select_clients()
+clients = fiv_select_clients
 
-clients.each do |client|
-  # copy client resources e.g. "cp ../clients/#{client}/resources ../"
-  # build app
-end
+clients.each { |client| }
 ```
 
 #### CI
@@ -163,9 +152,7 @@ end
 Clients selection can also be passed as an option for a non interactive environment. Add the option `clients` to `before_all` and assign it to an environment variable `CLIENTS`.
 
 ```ruby
-before_all do |lane, options|
-  ENV["CLIENTS"] = options[:clients]
-end
+before_all { |lane, options| ENV['CLIENTS'] = options[:clients] }
 ```
 
 Seperate clients by `,`:
@@ -200,7 +187,7 @@ For example you have the following app clients with different environments:
 `fiv_select_env()` lets you select one client and returns the client name.
 
 ```ruby
-client = fiv_select_client()
+client = fiv_select_client
 env = fiv_select_env(client: client)
 
 # copy client resources from environment e.g. "cp ../clients/#{client}/enviroment/#{env}/resources ../"
@@ -213,8 +200,8 @@ Environment selection can also be passed as an option for a non interactive envi
 
 ```ruby
 before_all do |lane, options|
-  ENV["CLIENT"] = options[:client]
-  ENV["ENV"] = options[:env]
+  ENV['CLIENT'] = options[:client]
+  ENV['ENV'] = options[:env]
 end
 ```
 
@@ -235,29 +222,32 @@ Zipaligns, [signs v2](https://source.android.com/security/apksigning/v2) and ver
 ```ruby
 # run before signing: ionic cordova build android --prod --release
 
-apk_path = fiv_sign_android(
-  keystore_name: "pizza",
-  key_alias: "pizza",
-  app_version: "1.0.1",
-  app_build_no: "2020",
-  apk_output_dir: "../apk",
-  silent: true
-)
+apk_path =
+  fiv_sign_android(
+    keystore_name: 'pizza',
+    key_alias: 'pizza',
+    app_version: '1.0.1',
+    app_build_no: '2020',
+    apk_output_dir: './apk',
+    silent: true
+  )
 ```
 
 #### Options
 
-| Options                    | Description                                                          | Type      | Default                                              | Required |
-| -------------------------- | -------------------------------------------------------------------- | --------- | ---------------------------------------------------- | -------- |
-| keystore_path              | Path to the android                                                  | `string`  | `./fastlane/android`                                 | `false`  |
-| keystore_name              | Name of the keystore used to store storepass and keypass in keychain | `string`  |                                                      | `true`   |
-| android_sdk_path           | Path to your installed Android SDK                                   | `string`  | `~/Library/Android/sdk`                              | `false`  |
-| android_build_tool_version | Android Build Tool version used for `zipalign`, `sign` and `verify`  | `string`  | `28.0.3`                                             | `false`  |
-| apk_output_dir             | Android Build Tool version used for `zipalign`, `sign` and `verify`  | `string`  | `../platforms/android/app/build/outputs/apk/release` | `false`  |
-| key_alias                  | Key alias of the keystore                                            | `string`  |                                                      | `true`   |
-| app_version                | App version                                                          | `string`  |                                                      | `true`   |
-| app_build_no               | App build number                                                     | `string`  |                                                      | `true`   |
-| silent                     | Wether to sign android silently                                      | `boolean` |                                                      | `true`   |
+| Options                    | Description                                                          | Type      | Default                                                                               | Required |
+| -------------------------- | -------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------- | -------- |
+| keystore_path              | Path to the android                                                  | `string`  | `./fastlane/android`                                                                  | `false`  |
+| keystore_name              | Name of the keystore used to store storepass and keypass in keychain | `string`  |                                                                                       | `true`   |
+| android_sdk_path           | Path to your installed Android SDK                                   | `string`  | `~/Library/Android/sdk`                                                               | `false`  |
+| android_build_tool_version | Android Build Tool version used for `zipalign`, `sign` and `verify`  | `string`  | `28.0.3`                                                                              | `false`  |
+| apk_source                 | Android Build Tool version used for `zipalign`, `sign` and `verify`  | `string`  | `./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk`          | `false`  |
+| apk_zipalign_target        | Target path for the zipaligned apk                                   | `string`  | `./platforms/android/app/build/outputs/apk/release/app-release-unsigned-zipalign.apk` | `false`  |
+| apk_signed_target          | Target path of the signed apk                                        | `string`  | `./platforms/android/app/build/outputs/apk/release`                                   | `false`  |
+| key_alias                  | Key alias of the keystore                                            | `string`  |                                                                                       | `true`   |
+| app_version                | App version                                                          | `string`  |                                                                                       | `true`   |
+| app_build_no               | App build number                                                     | `string`  |                                                                                       | `true`   |
+| silent                     | Wether to sign android silently                                      | `boolean` |                                                                                       | `true`   |
 
 ### fiv_update_version
 
