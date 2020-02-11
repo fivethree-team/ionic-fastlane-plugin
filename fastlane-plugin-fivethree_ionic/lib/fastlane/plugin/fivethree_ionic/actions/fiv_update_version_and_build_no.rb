@@ -7,8 +7,13 @@ module Fastlane
   module Actions
     class FivUpdateVersionAndBuildNoAction < Action
       def self.run(params)
-        
-        version = Fastlane::Actions::FivUpdateVersionAction.run(pathToConfigXML:params[:pathToConfigXML])
+        version;
+        if(params[:skip_version])
+          old_version = sh "echo \"cat //*[local-name()='widget']/@version\" | xmllint --shell #{params[:pathToConfigXML]}|  awk -F'[=\"]' '!/>/{print $(NF-1)}'"
+          version = old_version.delete!("\n")
+        else
+          version = Fastlane::Actions::FivUpdateVersionAction.run(pathToConfigXML:params[:pathToConfigXML])
+        end
         build_no = Fastlane::Actions::FivIncrementBuildNoAction.run(
           pathToConfigXML: params[:pathToConfigXML],
           ios: params[:ios]
