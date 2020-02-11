@@ -6,7 +6,7 @@ module Fastlane
 
     class FivVersionAction < Action
       def self.run(params)
-        version_and_build_no = Fastlane::Actions::FivUpdateVersionAndBuildNoAction.run(ios: params[:ios],pathToConfigXML:params[:pathToConfigXML])
+        version_and_build_no = Fastlane::Actions::FivUpdateVersionAndBuildNoAction.run(params)
         
         Fastlane::Actions::FivBumpVersionAction.run(
           message: "fastlane(#{params[:ios] ? "ios" : "android"}): build #{version_and_build_no[:build_no]}, version: #{version_and_build_no[:version]}"

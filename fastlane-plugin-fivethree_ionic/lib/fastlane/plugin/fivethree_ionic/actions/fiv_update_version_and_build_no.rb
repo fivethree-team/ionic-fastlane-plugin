@@ -9,6 +9,7 @@ module Fastlane
       def self.run(params)
         version;
         if(params[:skip_version])
+          puts("skiping version, just incrementing build no")
           old_version = sh "echo \"cat //*[local-name()='widget']/@version\" | xmllint --shell #{params[:pathToConfigXML]}|  awk -F'[=\"]' '!/>/{print $(NF-1)}'"
           version = old_version.delete!("\n")
         else
