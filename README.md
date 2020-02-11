@@ -1,6 +1,6 @@
-# ionic-4-fastlane-plugin
+# ionic-fastlane-plugin
 
-[fastlane plugin](https://rubygems.org/gems/fastlane-plugin-fivethree_ionic) for Ionic 4.
+[fastlane plugin](https://rubygems.org/gems/fastlane-plugin-fivethree_ionic) for Ionic 4+.
 
 ## Table of content
 
@@ -9,7 +9,7 @@
 
 ## Getting started
 
-Install the ionic-4-fastlane plugin
+Install the ionic-fastlane plugin
 
 ```console
 fastlane add_plugin fastlane-plugin-fivethree_ionic
