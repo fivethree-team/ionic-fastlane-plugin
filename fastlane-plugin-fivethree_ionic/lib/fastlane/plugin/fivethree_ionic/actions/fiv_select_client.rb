@@ -46,9 +46,9 @@ module Fastlane
                         UI.user_error!("Couldn't find clients folder at path '#{value}'") unless File.directory?(value)
                     end),
                     FastlaneCore::ConfigItem.new(
-                    key: : client,
+                    key: :client,
                     env_name: "FIV_CLIENT", # The name of the environment variable
-                    description: "client to select", # a short description of this parameter",
+                    description: "client to select", # a short description of this parameter"
                     is_string: true)
               ]
         end
