@@ -235,19 +235,18 @@ apk_path =
 
 #### Options
 
-| Options                    | Description                                                          | Type      | Default                                                                               | Required |
-| -------------------------- | -------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------- | -------- |
-| keystore_path              | Path to the android                                                  | `string`  | `./fastlane/android`                                                                  | `false`  |
-| keystore_name              | Name of the keystore used to store storepass and keypass in keychain | `string`  |                                                                                       | `true`   |
-| android_sdk_path           | Path to your installed Android SDK                                   | `string`  | `~/Library/Android/sdk`                                                               | `false`  |
-| android_build_tool_version | Android Build Tool version used for `zipalign`, `sign` and `verify`  | `string`  | `28.0.3`                                                                              | `false`  |
-| apk_source                 | Android Build Tool version used for `zipalign`, `sign` and `verify`  | `string`  | `./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk`          | `false`  |
-| apk_zipalign_target        | Target path for the zipaligned apk                                   | `string`  | `./platforms/android/app/build/outputs/apk/release/app-release-unsigned-zipalign.apk` | `false`  |
-| apk_signed_target          | Target path of the signed apk                                        | `string`  | `./platforms/android/app/build/outputs/apk/release`                                   | `false`  |
-| key_alias                  | Key alias of the keystore                                            | `string`  |                                                                                       | `true`   |
-| app_version                | App version                                                          | `string`  |                                                                                       | `true`   |
-| app_build_no               | App build number                                                     | `string`  |                                                                                       | `true`   |
-| silent                     | Wether to sign android silently                                      | `boolean` |                                                                                       | `true`   |
+| Options                    | Description                                                          | Type     | Default                                                                               | Required |
+| -------------------------- | -------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------- | -------- |
+| keystore_path              | Path to the android                                                  | `string` | `./fastlane/android`                                                                  | `false`  |
+| keystore_name              | Name of the keystore used to store storepass and keypass in keychain | `string` |                                                                                       | `true`   |
+| android_sdk_path           | Path to your installed Android SDK                                   | `string` | `~/Library/Android/sdk`                                                               | `false`  |
+| android_build_tool_version | Android Build Tool version used for `zipalign`, `sign` and `verify`  | `string` | `28.0.3`                                                                              | `false`  |
+| apk_source                 | Android Build Tool version used for `zipalign`, `sign` and `verify`  | `string` | `./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk`          | `false`  |
+| apk_zipalign_target        | Target path for the zipaligned apk                                   | `string` | `./platforms/android/app/build/outputs/apk/release/app-release-unsigned-zipalign.apk` | `false`  |
+| apk_signed_target          | Target path of the signed apk                                        | `string` | `./platforms/android/app/build/outputs/apk/release`                                   | `false`  |
+| key_alias                  | Key alias of the keystore                                            | `string` |                                                                                       | `true`   |
+| app_version                | App version                                                          | `string` |                                                                                       | `true`   |
+| app_build_no               | App build number                                                     | `string` |                                                                                       | `true`   |
 
 ### fiv_update_version
 

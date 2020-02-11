@@ -60,11 +60,11 @@ module Fastlane
             output_path
           } \
           #{zipalign_apk_file}"
-        self.run_shell_script(sign, params[:silent])
+        self.run_shell_script(sign)
 
         verify =
           ("#{android_build_tool_path}/apksigner verify -v #{output_path}")
-        self.run_shell_script(verify, params[:silent])
+        self.run_shell_script(verify)
 
         return output_path
       end
@@ -77,8 +77,8 @@ module Fastlane
         'Zipalign, sign and verify android apk'
       end
 
-      def self.run_shell_script(command, silent)
-        Fastlane::Actions.sh(command, log: silent)
+      def self.run_shell_script(command)
+        Fastlane::Actions.sh(command)
       end
 
       def self.details
@@ -164,13 +164,6 @@ module Fastlane
             description: 'App build number',
             is_string: true,
             default_value: ''
-          ),
-          FastlaneCore::ConfigItem.new(
-            key: :silent,
-            env_name: 'FIV_SIGN_ANDROID_SILENT',
-            description: 'Wether to sign android silently',
-            is_string: false,
-            default_value: true
           )
         ]
       end
