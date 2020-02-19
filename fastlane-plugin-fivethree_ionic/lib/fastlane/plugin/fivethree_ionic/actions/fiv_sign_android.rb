@@ -55,7 +55,7 @@ module Fastlane
           --ks-key-alias #{
             params[:key_alias]
           } \
-          --ks-pass pass:#{keystore_keypass} \
+          --ks-pass 'pass:#{keystore_keypass}' \
           --out #{
             output_path
           } \
