@@ -54,14 +54,14 @@ module Fastlane
           FastlaneCore::ConfigItem.new(
             key: :ios,
             env_name: 'FIV_INCREMENT_BUILD_NO_IOS',
-            description: '---',
+            description: 'Increment build no for ios',
             optional: false,
             type: Boolean
           ),
           FastlaneCore::ConfigItem.new(
             key: :pathToConfigXML,
             env_name: 'FIV_INCREMENT_BUILD_CONFIG',
-            description: '---',
+            description: 'Path to the Cordova config.xml',
             optional: false,
             verify_block:
               proc do |value|
@@ -112,8 +112,9 @@ module Fastlane
           FastlaneCore::ConfigItem.new(
             key: :skip_version,
             env_name: 'FIV_SKIP_VERSION',
-            description: '---',
-            optional: false,
+            description: 'CI flag to skip updating the version',
+            optional: true,
+            default_value: false,
             type: Boolean
           )
         ]

@@ -75,7 +75,8 @@ module Fastlane
             key: :skip_version,
             env_name: 'FIV_SKIP_VERSION',
             description: '---',
-            optional: false,
+            optional: true,
+            default_value: false,
             type: Boolean
           )
         ]

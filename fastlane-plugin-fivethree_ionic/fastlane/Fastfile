@@ -33,3 +33,7 @@ lane :sign_android_apk do |options|
       apk_signed_target: './apk'
     )
 end
+
+lane :version do |options|
+  fiv_version(ios: true, pathToConfigXML: './../config.xml')
+end
